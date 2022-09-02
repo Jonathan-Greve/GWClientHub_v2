@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GWClientHub_v2", "GWClientHub_v2.vcxproj", "{8A9AFA8D-0AAB-4964-A9A1-69A340B94E95}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GWCA", "GWCA\vc\GWCA.vcxproj", "{B3359F05-68CF-4E7F-B9D6-D106F6D48A38}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{8A9AFA8D-0AAB-4964-A9A1-69A340B94E95}.Release|x64.Build.0 = Release|x64
 		{8A9AFA8D-0AAB-4964-A9A1-69A340B94E95}.Release|x86.ActiveCfg = Release|Win32
 		{8A9AFA8D-0AAB-4964-A9A1-69A340B94E95}.Release|x86.Build.0 = Release|Win32
+		{B3359F05-68CF-4E7F-B9D6-D106F6D48A38}.Debug|x64.ActiveCfg = Debug|Win32
+		{B3359F05-68CF-4E7F-B9D6-D106F6D48A38}.Debug|x64.Build.0 = Debug|Win32
+		{B3359F05-68CF-4E7F-B9D6-D106F6D48A38}.Debug|x86.ActiveCfg = Debug|Win32
+		{B3359F05-68CF-4E7F-B9D6-D106F6D48A38}.Debug|x86.Build.0 = Debug|Win32
+		{B3359F05-68CF-4E7F-B9D6-D106F6D48A38}.Release|x64.ActiveCfg = Release|Win32
+		{B3359F05-68CF-4E7F-B9D6-D106F6D48A38}.Release|x64.Build.0 = Release|Win32
+		{B3359F05-68CF-4E7F-B9D6-D106F6D48A38}.Release|x86.ActiveCfg = Release|Win32
+		{B3359F05-68CF-4E7F-B9D6-D106F6D48A38}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
