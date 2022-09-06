@@ -1,9 +1,11 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "pch.h"
 
+#include "SafeThreadEntry.h"
+
 #include "GWCA/Include/GWCA/Utilities/Scanner.h"
 
-DWORD APIENTRY init(HMODULE hModule)
+DWORD APIENTRY Init(HMODULE hModule)
 {
     auto found = (DWORD**)GW::Scanner::Find(
                                             "\xA3\x00\x00\x00\x00\xFF\x75\x0C\xC7\x05",
@@ -28,11 +30,11 @@ DWORD APIENTRY init(HMODULE hModule)
     return 0;
 }
 
-void create_thread_for_bot(HMODULE hModule)
+void CreateThreadForBot(HMODULE hModule)
 {
     // Create new thread to run GWCA in safely.
     const HANDLE hThread = CreateThread(nullptr, 0,
-                                        reinterpret_cast<LPTHREAD_START_ROUTINE>(init),
+                                        reinterpret_cast<LPTHREAD_START_ROUTINE>(Init),
         hModule, 0, nullptr);
     if (hThread != nullptr)
         CloseHandle(hThread);
@@ -45,7 +47,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call,
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
-        create_thread_for_bot(hModule);
+        CreateThreadForBot(hModule);
         break;
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:

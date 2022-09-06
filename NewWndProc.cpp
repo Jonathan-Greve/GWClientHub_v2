@@ -1,6 +1,7 @@
 #include "pch.h"
 
-#include <Context/PreGameContext.h>
+#include "GWClientHub_v2.h"
+
 
 LRESULT NewWndProc(HWND hWnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {
@@ -11,17 +12,11 @@ LRESULT NewWndProc(HWND hWnd, UINT Message, WPARAM wParam, LPARAM lParam)
         // We want to make sure that all resources acquired by our bot are closed.
         // before the close the window/application. So we defer closing and manually
         // resend the WM_CLOSE message when all resources are freed.
-        GwClientHub_v2::Instance().StartSelfDestruct();
+        GWClientHub_v2::Instance().Terminate();
         return 0;
     }
 
-    if (!(!GW::PreGameContext::instance() && imgui_initialized &&
-        gw_client_hub_initialized && !gw_client_hub_destroyed))
-    {
-        return CallWindowProc(static_cast<WNDPROC>(OldWndProc), hWnd, Message,
-                              wParam, lParam);
-    }
-
-    return CallWindowProc(static_cast<WNDPROC>(OldWndProc), hWnd, Message,
+    // Call the initial/default WndProc that was set by the game.
+    return CallWindowProc(reinterpret_cast<WNDPROC>(DefaultWndProc), hWnd, Message,
                           wParam, lParam);
 }
