@@ -1,0 +1,2 @@
+.\vcpkg.exe install minhook:x86-windows-static
+.\vcpkg.exe install protobuf:x86-windows-static
