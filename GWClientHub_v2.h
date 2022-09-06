@@ -10,7 +10,6 @@ namespace GW
 }
 
 
-
 // Set to the default WindowProc in Init. This is the WindowProc the GW client creates when launched.
 // We store a copy so we can later restore current_GW_window_handle to the default WindowProc.
 inline long DefaultWndProc = 0;
@@ -22,6 +21,7 @@ inline GW::HookEntry Update_Entry;
 // Store the redis class which maintainsa connection to the redis server.
 // If the connection is broken it automatically reconnects.
 inline sw::redis::Redis* redis;
+inline sw::redis::Pipeline* redis_pipe;
 
 class GWClientHub_v2
 {

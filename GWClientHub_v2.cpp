@@ -28,6 +28,13 @@ void GWClientHub_v2::Init()
     connection_options.port = 6379;
     *redis = Redis(connection_options);
 
+    // And also create a redis pipe on a separate connection.
+    // I.e. the variable 'redis' uses a separate connection to the redis server
+    // than the 'redis_pipe' variable. So even if one is blocking the other can
+    // be used. But since we are operating from inside the game thread we will
+    // try to avoid any blocking operations.
+    *redis_pipe = redis->pipeline(true);
+
 
     // Get a unique id for the client.
     client_id = redis->incr("client_id_counter");
