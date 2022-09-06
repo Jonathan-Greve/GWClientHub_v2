@@ -28,6 +28,10 @@ void GWClientHub_v2::Init()
     connection_options.port = 6379;
     *redis = Redis(connection_options);
 
+
+    // Get a unique id for the client.
+    client_id = redis->incr("client_id_counter");
+
     // Register our Update method to be called on each frame from within the game thread.
     // Note that the game thread is separate from the current thread. It is the thread
     // controlled by the GW client.

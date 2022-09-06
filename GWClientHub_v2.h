@@ -45,4 +45,6 @@ public:
     static void Update(GW::HookStatus*);
 
     bool can_terminate;
+
+    uint32_t client_id;
 };
