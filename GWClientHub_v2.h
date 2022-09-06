@@ -9,6 +9,8 @@ namespace GW
     struct HookStatus;
 }
 
+using namespace sw::redis;
+
 
 // Set to the default WindowProc in Init. This is the WindowProc the GW client creates when launched.
 // We store a copy so we can later restore current_GW_window_handle to the default WindowProc.
@@ -18,10 +20,14 @@ inline HWND current_GW_window_handle;
 // Store the hook for the update method which is called once per frame.
 inline GW::HookEntry Update_Entry;
 
-// Store the redis class which maintainsa connection to the redis server.
-// If the connection is broken it automatically reconnects.
-inline sw::redis::Redis* redis;
-inline sw::redis::Pipeline* redis_pipe;
+// Connect to redis
+inline Redis redis = Redis("tcp://127.0.0.1:6379");
+// And also create a redis pipe on a separate connection.
+// I.e. the variable 'redis' uses a separate connection to the redis server
+// than the 'redis_pipe' variable. So even if one is blocking the other can
+// be used. But since we are operating from inside the game thread we will
+// try to avoid any blocking operations.
+inline Pipeline redis_pipe = redis.pipeline(true);
 
 class GWClientHub_v2
 {

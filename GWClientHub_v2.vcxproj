@@ -161,6 +161,7 @@
     <ClInclude Include="SafeThreadEntry.h" />
     <ClInclude Include="SafeWndProc.h" />
     <ClInclude Include="SendGameDataToRedis.h" />
+    <ClInclude Include="AddPlayerStateToRedisPipe.h" />
     <ClInclude Include="ThreadEntry.h" />
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +177,7 @@
     <ClCompile Include="SafeThreadEntry.cpp" />
     <ClCompile Include="SafeWndProc.cpp" />
     <ClCompile Include="SendGameDataToRedis.cpp" />
+    <ClCompile Include="AddPlayerStateToRedisPipe.cpp" />
     <ClCompile Include="ThreadEntry.cpp" />
   </ItemGroup>
   <ItemGroup>

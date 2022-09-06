@@ -63,6 +63,9 @@
     <ClInclude Include="SendGameDataToRedis.h">
       <Filter>Header Files\Update functions</Filter>
     </ClInclude>
+    <ClInclude Include="AddPlayerStateToRedisPipe.h">
+      <Filter>Header Files\Update functions\Player related functions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -88,6 +91,9 @@
     </ClCompile>
     <ClCompile Include="SendGameDataToRedis.cpp">
       <Filter>Source Files\Update functions</Filter>
+    </ClCompile>
+    <ClCompile Include="AddPlayerStateToRedisPipe.cpp">
+      <Filter>Source Files\Update functions\Player related functions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

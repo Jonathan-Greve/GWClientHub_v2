@@ -6,6 +6,8 @@
 #include "SafeWndProc.h"
 #include "SendGameDataToRedis.h"
 
+#include "Context/CharContext.h"
+
 #include "Managers/GameThreadMgr.h"
 #include "Managers/MemoryMgr.h"
 
@@ -22,42 +24,24 @@ void GWClientHub_v2::Init()
     DefaultWndProc = SetWindowLongPtrW(current_GW_window_handle, GWL_WNDPROC,
                                        reinterpret_cast<long>(SafeWndProc));
 
-    // Connect to redis
-    ConnectionOptions connection_options;
-    connection_options.host = "127.0.0.1";
-    connection_options.port = 6379;
-    *redis = Redis(connection_options);
-
-    // And also create a redis pipe on a separate connection.
-    // I.e. the variable 'redis' uses a separate connection to the redis server
-    // than the 'redis_pipe' variable. So even if one is blocking the other can
-    // be used. But since we are operating from inside the game thread we will
-    // try to avoid any blocking operations.
-    *redis_pipe = redis->pipeline(true);
-
+    // Get client email
+    std::wstring email_wchar = GW::CharContext::instance()->player_email;
+    std::string email{email_wchar.begin(), email_wchar.end()};
 
     // Get a unique id for the client.
-    client_id = redis->incr("client_id_counter");
+    auto existing_client_id =
+        redis.get(std::format("client:{}:id", email));
+    if (existing_client_id)
+        client_id = std::stoi(existing_client_id.value());
+    else {
+        client_id = redis.incr("client_id_counter");
+        redis.set(std::format("client:{}:id", email), std::to_string(client_id));
+    }
 
     // Register our Update method to be called on each frame from within the game thread.
     // Note that the game thread is separate from the current thread. It is the thread
     // controlled by the GW client.
     GW::GameThread::RegisterGameThreadCallback(&Update_Entry, Update);
-
-    // Busy wait until this thread is ready to exit.
-    while (!can_terminate)
-        Sleep(1000);
-
-    // Make sure all hooks are removed before be exit.
-    while (GW::HookBase::GetInHookCount())
-        Sleep(50);
-
-    // In GWToolbox they sleep a bit here. We do the same to be safe without knowing why.
-    Sleep(50);
-
-    GW::Terminate();
-
-    FreeLibraryAndExitThread(dll_module, EXIT_SUCCESS);
 }
 
 void GWClientHub_v2::Terminate()
