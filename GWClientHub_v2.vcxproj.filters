@@ -13,17 +13,29 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\ThreadStartFunctions">
-      <UniqueIdentifier>{1fb96ea4-fa82-409c-963e-ed8bd45989a6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ThreadStartFunctions">
-      <UniqueIdentifier>{7280b9a3-97e8-465d-8909-e499db74d29b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\pch">
       <UniqueIdentifier>{d0d74dbc-8649-4433-84b5-477350ef1982}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\pch">
       <UniqueIdentifier>{fc583b5d-165e-4b1d-ad59-e8c77b6afa31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Update functions">
+      <UniqueIdentifier>{1c8a6324-3ef9-4ab8-a3d7-da4da04610f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Thread startup functions">
+      <UniqueIdentifier>{7280b9a3-97e8-465d-8909-e499db74d29b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Thread startup functions">
+      <UniqueIdentifier>{1fb96ea4-fa82-409c-963e-ed8bd45989a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Update functions">
+      <UniqueIdentifier>{22f3523e-0bcb-4c6c-a824-a25da7b93fb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Update functions\Player related functions">
+      <UniqueIdentifier>{3e007466-a014-4ff6-8976-f8ac1fb93c91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Update functions\Player related functions">
+      <UniqueIdentifier>{a40c596c-2968-4374-839d-a0909396da95}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -31,22 +43,25 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="NewWndProc.h">
-      <Filter>Header Files\ThreadStartFunctions</Filter>
+      <Filter>Header Files\Thread startup functions</Filter>
     </ClInclude>
     <ClInclude Include="SafeWndProc.h">
-      <Filter>Header Files\ThreadStartFunctions</Filter>
+      <Filter>Header Files\Thread startup functions</Filter>
     </ClInclude>
     <ClInclude Include="SafeThreadEntry.h">
-      <Filter>Header Files\ThreadStartFunctions</Filter>
+      <Filter>Header Files\Thread startup functions</Filter>
     </ClInclude>
     <ClInclude Include="ThreadEntry.h">
-      <Filter>Header Files\ThreadStartFunctions</Filter>
+      <Filter>Header Files\Thread startup functions</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Header Files\pch</Filter>
     </ClInclude>
     <ClInclude Include="framework.h">
       <Filter>Header Files\pch</Filter>
+    </ClInclude>
+    <ClInclude Include="SendGameDataToRedis.h">
+      <Filter>Header Files\Update functions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -57,19 +72,25 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="NewWndProc.cpp">
-      <Filter>Source Files\ThreadStartFunctions</Filter>
+      <Filter>Source Files\Thread startup functions</Filter>
     </ClCompile>
     <ClCompile Include="SafeWndProc.cpp">
-      <Filter>Source Files\ThreadStartFunctions</Filter>
+      <Filter>Source Files\Thread startup functions</Filter>
     </ClCompile>
     <ClCompile Include="SafeThreadEntry.cpp">
-      <Filter>Source Files\ThreadStartFunctions</Filter>
+      <Filter>Source Files\Thread startup functions</Filter>
     </ClCompile>
     <ClCompile Include="ThreadEntry.cpp">
-      <Filter>Source Files\ThreadStartFunctions</Filter>
+      <Filter>Source Files\Thread startup functions</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files\pch</Filter>
     </ClCompile>
+    <ClCompile Include="SendGameDataToRedis.cpp">
+      <Filter>Source Files\Update functions</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="vcpkg_packages_required.txt" />
   </ItemGroup>
 </Project>

@@ -86,6 +86,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>C:\Users\jonag\source\repos\GWClientHub_v2\GWCA\Include\GWCA;C:\Users\jonag\source\repos\GWClientHub_v2\GWCA\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -107,6 +108,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>C:\Users\jonag\source\repos\GWClientHub_v2\GWCA\Include\GWCA;C:\Users\jonag\source\repos\GWClientHub_v2\GWCA\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard_C>Default</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -158,6 +160,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="SafeThreadEntry.h" />
     <ClInclude Include="SafeWndProc.h" />
+    <ClInclude Include="SendGameDataToRedis.h" />
     <ClInclude Include="ThreadEntry.h" />
   </ItemGroup>
   <ItemGroup>
@@ -172,12 +175,16 @@
     </ClCompile>
     <ClCompile Include="SafeThreadEntry.cpp" />
     <ClCompile Include="SafeWndProc.cpp" />
+    <ClCompile Include="SendGameDataToRedis.cpp" />
     <ClCompile Include="ThreadEntry.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="GWCA\vc\GWCA.vcxproj">
       <Project>{b3359f05-68cf-4e7f-b9d6-d106f6d48a38}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="vcpkg_packages_required.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -7,9 +7,14 @@
 #ifndef PCH_H
 #define PCH_H
 
+
 // add headers that you want to pre-compile here
+#include <sw/redis++/redis++.h>
 #include "framework.h"
 #include <cstdint>
 #include <cstdlib>
 
 #endif //PCH_H
+
+// Additional dependencies our project requires to build
+#pragma comment(lib, "Ws2_32.lib")
