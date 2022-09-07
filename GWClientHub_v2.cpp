@@ -1,8 +1,7 @@
 #include "pch.h"
 #include "GWClientHub_v2.h"
 
-#include "GWCA.h"
-#include "SafeThreadEntry.h"
+#include "KeyboardProc.h"
 #include "SafeWndProc.h"
 #include "SendGameDataToRedis.h"
 
@@ -10,8 +9,6 @@
 
 #include "Managers/GameThreadMgr.h"
 #include "Managers/MemoryMgr.h"
-
-#include "Utilities/Hooker.h"
 
 using namespace sw::redis;
 
@@ -33,7 +30,8 @@ void GWClientHub_v2::Init()
         redis.get(std::format("client:{}:id", email));
     if (existing_client_id)
         client_id = std::stoi(existing_client_id.value());
-    else {
+    else
+    {
         client_id = redis.incr("client_id_counter");
         redis.set(std::format("client:{}:id", email), std::to_string(client_id));
     }
@@ -42,15 +40,32 @@ void GWClientHub_v2::Init()
     // Note that the game thread is separate from the current thread. It is the thread
     // controlled by the GW client.
     GW::GameThread::RegisterGameThreadCallback(&Update_Entry, Update);
+
+    // Set our dll to
+    keyboard_hook_handle = SetWindowsHookExA(WH_KEYBOARD, &KeyboardProc, nullptr,
+                                             GetCurrentThreadId());
 }
 
+// Remove all hooks. Free all resources. Disconnect any connections to external processes.
 void GWClientHub_v2::Terminate()
 {
-    // Remove all hooks. Free all resources. Disconnect any connections to external processes.
-
     GW::GameThread::RemoveGameThreadCallback(&Update_Entry);
 
-    can_terminate = true;
+    UnhookWindowsHookEx(keyboard_hook_handle);
+
+
+    // Restore the window handle to be the default one that GW launched with.
+    SetWindowLongPtr(current_GW_window_handle, GWL_WNDPROC, DefaultWndProc);
+
+    // Let ThreadEntry know that it can finish terminating our dll thread.
+    has_freed_resources = true;
+
+    // If terminate was called because the window is closing (i.e. Alt-f4 or pressed close)
+    // Then resend the WM_CLOSE signal that we intercepted earlier in NewWndProc.
+    if (GW_is_closing)
+    {
+        SendMessageW(current_GW_window_handle, WM_CLOSE, NULL, NULL);
+    }
 }
 
 void GWClientHub_v2::Update(GW::HookStatus*)

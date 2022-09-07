@@ -27,7 +27,7 @@ DWORD __stdcall ThreadEntry(LPVOID)
             GWClientHub_v2::Instance().Init();
     });
 
-    while (!GWClientHub_v2::Instance().can_terminate)
+    while (!GWClientHub_v2::Instance().has_freed_resources)
     {
         // wait until destruction
         Sleep(100);

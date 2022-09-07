@@ -9,6 +9,9 @@ LRESULT NewWndProc(HWND hWnd, UINT Message, WPARAM wParam, LPARAM lParam)
     // in the top right corner of the window or when pressing Alt-f4.
     if (Message == WM_CLOSE)
     {
+        // Alert our code that the GW process is closing.
+        GWClientHub_v2::Instance().GW_is_closing = true;
+
         // We want to make sure that all resources acquired by our bot are closed.
         // before the close the window/application. So we defer closing and manually
         // resend the WM_CLOSE message when all resources are freed.

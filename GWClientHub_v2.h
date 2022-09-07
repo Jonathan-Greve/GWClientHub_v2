@@ -17,6 +17,9 @@ using namespace sw::redis;
 inline long DefaultWndProc = 0;
 inline HWND current_GW_window_handle;
 
+// Handle to keyboard hook. We use this when intercepting 'end' key press to terminate our dll.
+inline HHOOK keyboard_hook_handle;
+
 // Store the hook for the update method which is called once per frame.
 inline GW::HookEntry Update_Entry;
 
@@ -50,7 +53,8 @@ public:
     // Must be static because it is called from a hooked function.
     static void Update(GW::HookStatus*);
 
-    bool can_terminate;
+    bool GW_is_closing = false;
+    bool has_freed_resources = false;
 
     uint32_t client_id;
 };
