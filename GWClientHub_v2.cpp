@@ -74,9 +74,9 @@ void GWClientHub_v2::Update(GW::HookStatus*)
     if (last_tick_count == 0)
         last_tick_count = GetTickCount();
 
-    DWORD tick = GetTickCount();
-    DWORD delta = tick - last_tick_count;
-    float dt = delta / 1000.f;
+    const DWORD tick = GetTickCount();
+    const DWORD delta = tick - last_tick_count;
+    const float dt = static_cast<float>(delta) / 1000.f;
 
     SendGameDataToRedis(dt);
 

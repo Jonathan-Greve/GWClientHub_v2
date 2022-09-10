@@ -10,7 +10,7 @@
  * \brief Send game data to a redis server on localhost.
  * \param dt Time since last call in milliseconds.
  */
-void SendGameDataToRedis(float dt)
+void SendGameDataToRedis(const float dt)
 {
     AddCharacterStateToRedisPipe(dt);
     AddPathingMapToRedisPipe(dt);

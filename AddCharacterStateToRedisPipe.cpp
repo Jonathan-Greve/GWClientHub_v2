@@ -11,14 +11,15 @@
 #include "Managers/AgentMgr.h"
 
 
-void AddCharacterStateToRedisPipe(float dt)
+void AddCharacterStateToRedisPipe(const float dt)
 {
-    if (const auto character = GW::Agents::GetCharacter())
+    if (const auto* const character = GW::Agents::GetCharacter())
     {
         AddCharacterPositionToRedisPipe(character);
-        if (auto agent_context = GW::AgentContext::instance())
+        if (const auto* const agent_context = GW::AgentContext::instance())
         {
-            if (auto character_agent_movement = agent_context->agent_movement[character->agent_id])
+            if (const auto* const character_agent_movement = agent_context->agent_movement[character->
+                agent_id])
             {
                 auto& moving1 = character_agent_movement->moving1;
                 const auto key =

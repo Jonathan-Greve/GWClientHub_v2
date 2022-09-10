@@ -11,9 +11,9 @@ float previous_set_z = 0;
 uint32_t previous_set_z_plane = 0;
 float previous_set_rotation = 0;
 
-void AddCharacterPositionToRedisPipe(GW::AgentLiving* character)
+void AddCharacterPositionToRedisPipe(const GW::AgentLiving* character)
 {
-    auto& position = character->pos;
+    const auto& position = character->pos;
     const auto key = std::format("client:{}:player:position",
                                  GWClientHub_v2::Instance().client_id);
 

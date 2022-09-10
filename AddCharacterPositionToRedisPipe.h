@@ -6,4 +6,4 @@ namespace GW
 
 inline bool character_position_changed = false;
 
-void AddCharacterPositionToRedisPipe(GW::AgentLiving* character);
+void AddCharacterPositionToRedisPipe(const GW::AgentLiving* character);
