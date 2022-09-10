@@ -29,7 +29,7 @@ void GWClientHub_v2::Init()
     // be slightly faster.
     auto existing_client_id = redis.hget("clients:email_to_client_id", email);
     if (existing_client_id)
-        client_id = std::stoi(existing_client_id.value());
+        client_id = existing_client_id.value();
     else
     {
         client_id = std::to_string(redis.incr("client_id_counter"));
