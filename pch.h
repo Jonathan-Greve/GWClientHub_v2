@@ -9,7 +9,11 @@
 
 
 // add headers that you want to pre-compile here
+#pragma warning(push)
+#pragma warning(disable : 4244 4200 4101)
 #include <sw/redis++/redis++.h>
+#pragma warning(pop)
+
 #include "framework.h"
 #include <cstdint>
 #include <cstdlib>
