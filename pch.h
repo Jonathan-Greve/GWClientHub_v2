@@ -14,7 +14,7 @@
 #include <cstdint>
 #include <cstdlib>
 
-#endif //PCH_H
-
 // Additional dependencies our project requires to build
 #pragma comment(lib, "Ws2_32.lib")
+
+#endif //PCH_H
