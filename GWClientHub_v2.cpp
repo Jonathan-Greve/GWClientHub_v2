@@ -25,15 +25,16 @@ void GWClientHub_v2::Init()
     std::wstring email_wchar = GW::CharContext::instance()->player_email;
     std::string email{email_wchar.begin(), email_wchar.end()};
 
-    // Get a unique id for the client.
-    auto existing_client_id =
-        redis.get(std::format("client:{}:id", email));
+    // Get a unique id for the client. We could use email. But a small integer key should
+    // be slightly faster.
+    auto existing_client_id = redis.hget("clients:email_to_client_id", email);
     if (existing_client_id)
         client_id = std::stoi(existing_client_id.value());
     else
     {
-        client_id = redis.incr("client_id_counter");
-        redis.set(std::format("client:{}:id", email), std::to_string(client_id));
+        client_id = std::to_string(redis.incr("client_id_counter"));
+        redis.hset("clients:email_to_client_id",
+                   {email, client_id});
     }
 
     // Register our Update method to be called on each frame from within the game thread.

@@ -56,5 +56,5 @@ public:
     bool GW_is_closing = false;
     bool has_freed_resources = false;
 
-    uint32_t client_id;
+    std::string client_id;
 };
