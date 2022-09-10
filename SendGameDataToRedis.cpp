@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "SendGameDataToRedis.h"
 
+#include "AddPathingMapToRedisPipe.h"
 #include "AddPlayerStateToRedisPipe.h"
 #include "GWClientHub_v2.h"
 
@@ -11,8 +12,8 @@
  */
 void SendGameDataToRedis(float dt)
 {
-    AddPlayerStateToRedisPipe(dt);
-    redis_pipe.set(std::to_string(dt), std::to_string(dt));
+    AddCharacterStateToRedisPipe(dt);
+    AddPathingMapToRedisPipe(dt);
 
     // Send all the data in the pipeline to the redis server
     redis_pipe.exec();

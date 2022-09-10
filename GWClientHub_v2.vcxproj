@@ -154,8 +154,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AddCharacterPositionToRedisPipe.h" />
+    <ClInclude Include="AddPathingMapToRedisPipe.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GWClientHub_v2.h" />
+    <ClInclude Include="KeyboardProc.h" />
     <ClInclude Include="NewWndProc.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="SafeThreadEntry.h" />
@@ -165,6 +168,8 @@
     <ClInclude Include="ThreadEntry.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AddCharacterPositionToRedisPipe.cpp" />
+    <ClCompile Include="AddPathingMapToRedisPipe.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="GWClientHub_v2.cpp" />
     <ClCompile Include="NewWndProc.cpp" />
@@ -177,7 +182,7 @@
     <ClCompile Include="SafeThreadEntry.cpp" />
     <ClCompile Include="SafeWndProc.cpp" />
     <ClCompile Include="SendGameDataToRedis.cpp" />
-    <ClCompile Include="AddPlayerStateToRedisPipe.cpp" />
+    <ClCompile Include="AddCharacterStateToRedisPipe.cpp" />
     <ClCompile Include="ThreadEntry.cpp" />
   </ItemGroup>
   <ItemGroup>

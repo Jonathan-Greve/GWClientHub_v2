@@ -37,6 +37,12 @@
     <Filter Include="Header Files\Update functions\Player related functions">
       <UniqueIdentifier>{a40c596c-2968-4374-839d-a0909396da95}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Update functions\Map related functions">
+      <UniqueIdentifier>{a1a7a66a-e9d4-4f8f-ae67-bd4bdfe61715}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Update functions\Map related functions">
+      <UniqueIdentifier>{b28fd052-ca0e-4375-b927-a1b516ba53cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GWClientHub_v2.h">
@@ -66,6 +72,15 @@
     <ClInclude Include="AddPlayerStateToRedisPipe.h">
       <Filter>Header Files\Update functions\Player related functions</Filter>
     </ClInclude>
+    <ClInclude Include="AddPathingMapToRedisPipe.h">
+      <Filter>Header Files\Update functions\Map related functions</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardProc.h">
+      <Filter>Header Files\Thread startup functions</Filter>
+    </ClInclude>
+    <ClInclude Include="AddCharacterPositionToRedisPipe.h">
+      <Filter>Header Files\Update functions\Player related functions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -92,7 +107,13 @@
     <ClCompile Include="SendGameDataToRedis.cpp">
       <Filter>Source Files\Update functions</Filter>
     </ClCompile>
-    <ClCompile Include="AddPlayerStateToRedisPipe.cpp">
+    <ClCompile Include="AddCharacterStateToRedisPipe.cpp">
+      <Filter>Source Files\Update functions\Player related functions</Filter>
+    </ClCompile>
+    <ClCompile Include="AddPathingMapToRedisPipe.cpp">
+      <Filter>Source Files\Update functions\Map related functions</Filter>
+    </ClCompile>
+    <ClCompile Include="AddCharacterPositionToRedisPipe.cpp">
       <Filter>Source Files\Update functions\Player related functions</Filter>
     </ClCompile>
   </ItemGroup>

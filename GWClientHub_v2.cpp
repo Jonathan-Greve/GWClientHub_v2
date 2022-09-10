@@ -27,8 +27,7 @@ void GWClientHub_v2::Init()
 
     // Get a unique id for the client. We could use email. But a small integer key should
     // be slightly faster.
-    auto existing_client_id = redis.hget("clients:email_to_client_id", email);
-    if (existing_client_id)
+    if (auto existing_client_id = redis.hget("clients:email_to_client_id", email))
         client_id = existing_client_id.value();
     else
     {

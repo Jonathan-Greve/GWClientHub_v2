@@ -10,4 +10,4 @@
  * read the source code.
  * \param dt Time since last call in milliseconds.
  */
-void AddPlayerStateToRedisPipe(float dt);
+void AddCharacterStateToRedisPipe(float dt);
