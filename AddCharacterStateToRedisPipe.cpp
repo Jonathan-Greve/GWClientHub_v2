@@ -24,8 +24,7 @@ void AddCharacterStateToRedisPipe(const float dt)
                 auto& moving1 = character_agent_movement->moving1;
                 const auto key =
                     std::format("client:{}:player:position", GWClientHub_v2::Instance().client_id);
-                redis_pipe.hset(key,
-                                std::make_pair("is_stuck", std::to_string(moving1)));
+                redis_pipe.hset(key, std::make_pair("is_stuck", std::to_string(moving1)));
             }
         }
     }
