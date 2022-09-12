@@ -81,6 +81,9 @@
     <ClInclude Include="AddCharacterPositionToRedisPipe.h">
       <Filter>Header Files\Update functions\Player related functions</Filter>
     </ClInclude>
+    <ClInclude Include="AddMapBoundariesToRedisPipe.h">
+      <Filter>Header Files\Update functions\Map related functions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -110,11 +113,14 @@
     <ClCompile Include="AddCharacterStateToRedisPipe.cpp">
       <Filter>Source Files\Update functions\Player related functions</Filter>
     </ClCompile>
-    <ClCompile Include="AddPathingMapToRedisPipe.cpp">
+    <ClCompile Include="AddMapTrapezoidsToRedisPipe.cpp">
       <Filter>Source Files\Update functions\Map related functions</Filter>
     </ClCompile>
     <ClCompile Include="AddCharacterPositionToRedisPipe.cpp">
       <Filter>Source Files\Update functions\Player related functions</Filter>
+    </ClCompile>
+    <ClCompile Include="AddMapBoundariesToRedisPipe.cpp">
+      <Filter>Source Files\Update functions\Map related functions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

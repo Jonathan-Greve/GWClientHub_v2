@@ -17,7 +17,7 @@
  * if the data does not already exists on the redis server.
  * \param dt Time since function was last called. 
  */
-void AddPathingMapToRedisPipe(const float dt)
+void AddMapTrapezoidsToRedisPipe(const float dt)
 {
     if (time_since_updated_pathing_map < 5)
     {
@@ -44,8 +44,7 @@ void AddPathingMapToRedisPipe(const float dt)
     if (number_of_trapezoids == 0) return;
 
 
-    std::string& client_id = GWClientHub_v2::Instance().client_id;
-    const std::string trapezoid_key = std::format("client:{}:map:{}:trapezoids", client_id, map_id);
+    const std::string trapezoid_key = std::format("map:{}:trapezoids", map_id);
 
     const auto expected_hash_length = number_of_trapezoids * 12 + 1;
     const auto existing_hash_length = redis.hlen(trapezoid_key);

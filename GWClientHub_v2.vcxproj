@@ -155,6 +155,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AddCharacterPositionToRedisPipe.h" />
+    <ClInclude Include="AddMapBoundariesToRedisPipe.h" />
     <ClInclude Include="AddPathingMapToRedisPipe.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GWClientHub_v2.h" />
@@ -169,7 +170,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AddCharacterPositionToRedisPipe.cpp" />
-    <ClCompile Include="AddPathingMapToRedisPipe.cpp" />
+    <ClCompile Include="AddMapBoundariesToRedisPipe.cpp" />
+    <ClCompile Include="AddMapTrapezoidsToRedisPipe.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="GWClientHub_v2.cpp" />
     <ClCompile Include="NewWndProc.cpp" />
