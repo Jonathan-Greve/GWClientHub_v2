@@ -14,8 +14,8 @@ float previous_set_rotation = 0;
 void AddCharacterPositionToRedisPipe(const GW::AgentLiving* character)
 {
     const auto& position = character->pos;
-    const auto key = std::format("client:{}:player:position",
-                                 GWClientHub_v2::Instance().client_id);
+    static const auto key = std::format("client:{}:player:position",
+                                        GWClientHub_v2::Instance().client_id);
 
     const auto& x = position.x;
     const auto& y = position.y;
@@ -45,12 +45,13 @@ void AddCharacterPositionToRedisPipe(const GW::AgentLiving* character)
         // From -pi to pi. 0 at East. pi/2 at north. pi at west. -pi/2 at south.
         redis_pipe.hset(key, std::make_pair("rotation", std::to_string(rotation)));
 
-        const auto changed_key = std::format("client:{}:changes", GWClientHub_v2::Instance().client_id);
+        static const auto changed_key =
+            std::format("client:{}:changes", GWClientHub_v2::Instance().client_id);
 
         // We use a counter to keep track of how many times the character
         // position has changed. Other processes use this to know when to
         // update locally cached position.
-        redis_pipe.hincrby(changed_key, "position_velocity_rotation", 1);
+        redis_pipe.hincrby(changed_key, "position", 1);
 
         previous_set_x = x;
         previous_set_y = y;

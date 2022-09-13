@@ -43,6 +43,18 @@
     <Filter Include="Header Files\Update functions\Map related functions">
       <UniqueIdentifier>{b28fd052-ca0e-4375-b927-a1b516ba53cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Update functions\Map related functions\Static data">
+      <UniqueIdentifier>{b53e6284-747e-48a2-a3fe-dadabccb3bcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Update functions\Map related functions\Dynamic data">
+      <UniqueIdentifier>{52b1789b-e6ee-4f73-be9a-bbba92d7f4fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Update functions\Map related functions\Static data">
+      <UniqueIdentifier>{5821ed98-2866-4271-9358-93d099b6dbb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Update functions\Map related functions\Dynamic data">
+      <UniqueIdentifier>{697b315c-2333-4587-baf5-fc9ae7c1892b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GWClientHub_v2.h">
@@ -72,9 +84,6 @@
     <ClInclude Include="AddPlayerStateToRedisPipe.h">
       <Filter>Header Files\Update functions\Player related functions</Filter>
     </ClInclude>
-    <ClInclude Include="AddPathingMapToRedisPipe.h">
-      <Filter>Header Files\Update functions\Map related functions</Filter>
-    </ClInclude>
     <ClInclude Include="KeyboardProc.h">
       <Filter>Header Files\Thread startup functions</Filter>
     </ClInclude>
@@ -82,7 +91,13 @@
       <Filter>Header Files\Update functions\Player related functions</Filter>
     </ClInclude>
     <ClInclude Include="AddMapBoundariesToRedisPipe.h">
-      <Filter>Header Files\Update functions\Map related functions</Filter>
+      <Filter>Header Files\Update functions\Map related functions\Static data</Filter>
+    </ClInclude>
+    <ClInclude Include="AddPathingMapToRedisPipe.h">
+      <Filter>Header Files\Update functions\Map related functions\Static data</Filter>
+    </ClInclude>
+    <ClInclude Include="AddCurrentMapInfoToRedisPipe.h">
+      <Filter>Header Files\Update functions\Map related functions\Dynamic data</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -113,14 +128,17 @@
     <ClCompile Include="AddCharacterStateToRedisPipe.cpp">
       <Filter>Source Files\Update functions\Player related functions</Filter>
     </ClCompile>
-    <ClCompile Include="AddMapTrapezoidsToRedisPipe.cpp">
-      <Filter>Source Files\Update functions\Map related functions</Filter>
-    </ClCompile>
     <ClCompile Include="AddCharacterPositionToRedisPipe.cpp">
       <Filter>Source Files\Update functions\Player related functions</Filter>
     </ClCompile>
     <ClCompile Include="AddMapBoundariesToRedisPipe.cpp">
-      <Filter>Source Files\Update functions\Map related functions</Filter>
+      <Filter>Source Files\Update functions\Map related functions\Static data</Filter>
+    </ClCompile>
+    <ClCompile Include="AddMapTrapezoidsToRedisPipe.cpp">
+      <Filter>Source Files\Update functions\Map related functions\Static data</Filter>
+    </ClCompile>
+    <ClCompile Include="AddCurrentMapInfoToRedisPipe.cpp">
+      <Filter>Source Files\Update functions\Map related functions\Dynamic data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

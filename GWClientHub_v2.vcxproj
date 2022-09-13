@@ -155,6 +155,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AddCharacterPositionToRedisPipe.h" />
+    <ClInclude Include="AddCurrentMapInfoToRedisPipe.h" />
     <ClInclude Include="AddMapBoundariesToRedisPipe.h" />
     <ClInclude Include="AddPathingMapToRedisPipe.h" />
     <ClInclude Include="framework.h" />
@@ -170,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AddCharacterPositionToRedisPipe.cpp" />
+    <ClCompile Include="AddCurrentMapInfoToRedisPipe.cpp" />
     <ClCompile Include="AddMapBoundariesToRedisPipe.cpp" />
     <ClCompile Include="AddMapTrapezoidsToRedisPipe.cpp" />
     <ClCompile Include="dllmain.cpp" />

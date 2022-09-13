@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "SendGameDataToRedis.h"
 
+#include "AddCurrentMapInfoToRedisPipe.h"
 #include "AddMapBoundariesToRedisPipe.h"
 #include "AddPathingMapToRedisPipe.h"
 #include "AddPlayerStateToRedisPipe.h"
@@ -13,7 +14,11 @@
  */
 void SendGameDataToRedis(const float dt)
 {
+    // Functions where the data can change on every call.
     AddCharacterStateToRedisPipe(dt);
+    AddCurrentMapInfoToRedisPipe();
+
+    // Functions which will send the same data once at most.
     AddMapTrapezoidsToRedisPipe(dt);
     AddMapBoundariesToRedisPipe(dt);
 
