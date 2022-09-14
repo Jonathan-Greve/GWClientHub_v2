@@ -18,8 +18,7 @@ void AddCurrentMapInfoToRedisPipe()
 
 
     const auto& current_map_id{GW::CharContext::instance()->current_map_id};
-    const auto& current_is_explorable{GW::CharContext::instance()->is_explorable};
-    const auto& current_world_flags{GW::CharContext::instance()->world_flags};
+    const bool& current_is_explorable{static_cast<bool>(GW::CharContext::instance()->is_explorable)};
     const auto& current_world_id{GW::CharContext::instance()->token1};
 
     bool map_info_changed{false};
@@ -34,13 +33,6 @@ void AddCurrentMapInfoToRedisPipe()
     {
         is_explorable = current_is_explorable;
         redis_pipe.hset(map_info_key, std::make_pair("is_explorable", std::to_string(is_explorable)));
-
-        map_info_changed = true;
-    }
-    if (world_flags != current_world_flags)
-    {
-        world_flags = current_world_flags;
-        redis_pipe.hset(map_info_key, std::make_pair("world_flags", std::to_string(world_flags)));
 
         map_info_changed = true;
     }
