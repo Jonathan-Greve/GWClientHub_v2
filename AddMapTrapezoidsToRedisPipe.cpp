@@ -74,7 +74,7 @@ void AddMapTrapezoidsToRedisPipe(const float dt)
             std::string trapezoid_id = std::to_string(trapezoid.id);
             bool is_traversable = !sub1s[i];
 
-            float radius = 0;
+            float radius = 10;
 
             float altitude = 0;
             GW::GamePos gp{trapezoid.XBL, trapezoid.YB, i};
