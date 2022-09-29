@@ -12,14 +12,13 @@
 
 using namespace sw::redis;
 
-
 void GWClientHub_v2::Init()
 {
     // Set up our own NewWndHandle and store a copy of the default WndProc in DefaultWndProc
     // We can then later restore current_GW_window_handle to be the default when we terminate.
     current_GW_window_handle = GW::MemoryMgr::GetGWWindowHandle();
-    DefaultWndProc = SetWindowLongPtrW(current_GW_window_handle, GWL_WNDPROC,
-                                       reinterpret_cast<long>(SafeWndProc));
+    DefaultWndProc =
+      SetWindowLongPtrW(current_GW_window_handle, GWL_WNDPROC, reinterpret_cast<long>(SafeWndProc));
 
     // Get client email
     std::wstring email_wchar = GW::CharContext::instance()->player_email;
@@ -32,8 +31,7 @@ void GWClientHub_v2::Init()
     else
     {
         client_id = std::to_string(redis.incr("clients:client_id_counter"));
-        redis.hset("clients:email_to_client_id",
-                   {email, client_id});
+        redis.hset("clients:email_to_client_id", {email, client_id});
     }
 
     // Register our Update method to be called on each frame from within the game thread.
@@ -42,8 +40,7 @@ void GWClientHub_v2::Init()
     GW::GameThread::RegisterGameThreadCallback(&Update_Entry, Update);
 
     // Set our dll to
-    keyboard_hook_handle = SetWindowsHookExA(WH_KEYBOARD, &KeyboardProc, nullptr,
-                                             GetCurrentThreadId());
+    keyboard_hook_handle = SetWindowsHookExA(WH_KEYBOARD, &KeyboardProc, nullptr, GetCurrentThreadId());
 }
 
 // Remove all hooks. Free all resources. Disconnect any connections to external processes.
@@ -52,7 +49,6 @@ void GWClientHub_v2::Terminate()
     GW::GameThread::RemoveGameThreadCallback(&Update_Entry);
 
     UnhookWindowsHookEx(keyboard_hook_handle);
-
 
     // Restore the window handle to be the default one that GW launched with.
     SetWindowLongPtr(current_GW_window_handle, GWL_WNDPROC, DefaultWndProc);
@@ -78,7 +74,11 @@ void GWClientHub_v2::Update(GW::HookStatus*)
     const DWORD delta = tick - last_tick_count;
     const float dt = static_cast<float>(delta) / 1000.f;
 
-    SendGameDataToRedis(dt);
+    if (! GWClientHub_v2::Instance().has_freed_resources && ! GWClientHub_v2::Instance().GW_is_closing)
+    {
+        // Send game data to redis
+        SendGameDataToRedis(dt);
+    }
 
     last_tick_count = tick;
 }

@@ -44,7 +44,6 @@ void AddMapTrapezoidsToRedisPipe(const float dt)
     if (number_of_trapezoids == 0)
         return;
 
-    static const auto boundary_key{std::format("map:{}:bounds", map_id)};
     const std::string trapezoid_key{std::format("map:{}:trapezoids", map_id)};
 
     const auto expected_hash_length = number_of_trapezoids * 12 + 1;
@@ -74,6 +73,9 @@ void AddMapTrapezoidsToRedisPipe(const float dt)
     float max_y = -1000000000;
     float min_z = 1000000000;
     float max_z = -1000000000;
+    float avg_z = 0;
+    uint32_t number_of_points = 0;
+
     for (size_t i = 0; i < path_map->size(); ++i)
     {
         const GW::PathingMap pmap = path_map->m_buffer[i];
@@ -120,6 +122,10 @@ void AddMapTrapezoidsToRedisPipe(const float dt)
 
             trapezoid_map.insert({"is_traversable_" + trapezoid_id, std::to_string(is_traversable)});
             trapezoid_map.insert({"map_layer_" + trapezoid_id, std::to_string(i)});
+
+            // Compute average z value
+            avg_z += TL.z + TR.z + BL.z + BR.z;
+            number_of_points += 4;
 
             if (BL.x < min_x)
                 min_x = BL.x;
@@ -184,18 +190,11 @@ void AddMapTrapezoidsToRedisPipe(const float dt)
     map_center_x[map_id] = (max_x + min_x) / 2.0f;
     map_center_y[map_id] = (max_y + min_y) / 2.0f;
     map_center_z[map_id] = (max_z + min_z) / 2.0f;
+    avg_z = avg_z / number_of_points;
+    map_avg_z[map_id] = avg_z;
+    map_bounds_set.insert(map_id);
 
     trapezoid_map.insert({"number_of_trapezoids", std::to_string(number_of_trapezoids)});
-
-    redis_pipe.hset(boundary_key, std::make_pair("max_x", std::to_string(max_x)));
-    redis_pipe.hset(boundary_key, std::make_pair("max_y", std::to_string(max_y)));
-    redis_pipe.hset(boundary_key, std::make_pair("max_z", std::to_string(max_z)));
-    redis_pipe.hset(boundary_key, std::make_pair("min_x", std::to_string(min_x)));
-    redis_pipe.hset(boundary_key, std::make_pair("min_y", std::to_string(min_y)));
-    redis_pipe.hset(boundary_key, std::make_pair("min_z", std::to_string(min_z)));
-    redis_pipe.hset(boundary_key, std::make_pair("center_x", std::to_string(map_center_x[map_id])));
-    redis_pipe.hset(boundary_key, std::make_pair("center_y", std::to_string(map_center_y[map_id])));
-    redis_pipe.hset(boundary_key, std::make_pair("center_z", std::to_string(map_center_z[map_id])));
 
     // Add all trapezoid data to pipeline
     redis_pipe.hmset(trapezoid_key, trapezoid_map.begin(), trapezoid_map.end());
@@ -231,7 +230,7 @@ void AddMapGridPointsToRedisPipe(float dt)
     uint32_t num_grid_points_y{static_cast<uint32_t>(map_height / grid_height) + 1};
 
     const auto num_grid_points{(num_grid_points_x * num_grid_points_y)};
-    if (redis.hlen(grid_key) == num_grid_points * 3 + 1)
+    if (redis.hlen(grid_key) == static_cast<long long>(num_grid_points) * 3 + 1)
     {
         existing_grid_points_map_id.insert(map_id);
         return;

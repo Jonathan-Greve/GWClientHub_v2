@@ -168,6 +168,7 @@
     <ClInclude Include="AddCharacterPositionToRedisPipe.h" />
     <ClInclude Include="AddCurrentMapInfoToRedisPipe.h" />
     <ClInclude Include="AddMapBoundariesToRedisPipe.h" />
+    <ClInclude Include="AddMapPropsToRedisPipe.h" />
     <ClInclude Include="AddPathingMapToRedisPipe.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GWClientHub_v2.h" />
@@ -184,6 +185,7 @@
     <ClCompile Include="AddCharacterPositionToRedisPipe.cpp" />
     <ClCompile Include="AddCurrentMapInfoToRedisPipe.cpp" />
     <ClCompile Include="AddMapBoundariesToRedisPipe.cpp" />
+    <ClCompile Include="AddMapPropsToRedisPipe.cpp" />
     <ClCompile Include="AddMapTrapezoidsToRedisPipe.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="GWClientHub_v2.cpp" />

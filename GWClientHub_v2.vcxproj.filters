@@ -99,6 +99,9 @@
     <ClInclude Include="AddCurrentMapInfoToRedisPipe.h">
       <Filter>Header Files\Update functions\Map related functions\Dynamic data</Filter>
     </ClInclude>
+    <ClInclude Include="AddMapPropsToRedisPipe.h">
+      <Filter>Header Files\Update functions\Map related functions\Static data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -139,6 +142,9 @@
     </ClCompile>
     <ClCompile Include="AddCurrentMapInfoToRedisPipe.cpp">
       <Filter>Source Files\Update functions\Map related functions\Dynamic data</Filter>
+    </ClCompile>
+    <ClCompile Include="AddMapPropsToRedisPipe.cpp">
+      <Filter>Source Files\Update functions\Map related functions\Static data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
