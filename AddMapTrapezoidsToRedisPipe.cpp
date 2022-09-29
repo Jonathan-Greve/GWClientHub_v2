@@ -258,6 +258,8 @@ void AddMapGridPointsToRedisPipe(float dt)
     }
 
     redis_pipe.hmset(grid_key, grid_point_map.begin(), grid_point_map.end());
+    redis_pipe.hset(grid_key, "grid_width", std::to_string(grid_width));
+    redis_pipe.hset(grid_key, "grid_height", std::to_string(grid_height));
     redis_pipe.hset(grid_key, "number_of_grid_points", std::to_string(num_grid_points));
 
     time_since_updated_grid_points = 0;
