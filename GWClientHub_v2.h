@@ -1,7 +1,6 @@
 #pragma once
 #include "Utilities/Hook.h"
 
-
 // Forwards declarations. The header files will be included in the .cpp file
 // This speeds up compilation.
 namespace GW

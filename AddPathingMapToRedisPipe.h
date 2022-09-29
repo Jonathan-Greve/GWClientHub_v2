@@ -12,8 +12,11 @@ inline float map_max_x[900];
 inline float map_min_x[900];
 inline float map_max_y[900];
 inline float map_min_y[900];
+inline float map_max_z[900];
+inline float map_min_z[900];
 inline float map_center_x[900];
 inline float map_center_y[900];
+inline float map_center_z[900];
 
 inline float grid_width{50};
 inline float grid_height{50};

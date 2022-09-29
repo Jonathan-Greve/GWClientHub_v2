@@ -10,7 +10,6 @@
 
 #include "Managers/MapMgr.h"
 
-
 /**
  * \brief Add the PathingMap for the current map to redis. This contains the trapezoid required to draw
  * the navigation mesh amongst other things. This takes multiple megabytes so we only do this operation
@@ -29,7 +28,8 @@ void AddMapTrapezoidsToRedisPipe(const float dt)
 
     if (GW::Map::GetIsMapLoaded())
         path_map = GW::Map::GetPathingMap();
-    else return;
+    else
+        return;
 
     // We've aleady added trapezoid info for this map
     const auto& map_id = GW::CharContext::instance()->current_map_id;
@@ -41,8 +41,8 @@ void AddMapTrapezoidsToRedisPipe(const float dt)
     uint32_t number_of_trapezoids = 0;
     for (const GW::PathingMap& map : *path_map)
         number_of_trapezoids += map.trapezoid_count;
-    if (number_of_trapezoids == 0) return;
-
+    if (number_of_trapezoids == 0)
+        return;
 
     static const auto boundary_key{std::format("map:{}:bounds", map_id)};
     const std::string trapezoid_key{std::format("map:{}:trapezoids", map_id)};
@@ -60,16 +60,20 @@ void AddMapTrapezoidsToRedisPipe(const float dt)
     std::unordered_map<std::string, std::string> trapezoid_map;
 
     const GW::GameContext* const g = GW::GameContext::instance();
-    if (!g) return;
+    if (! g)
+        return;
 
     const GW::MapContext* const map_context = g->map;
-    if (!map_context) return;
+    if (! map_context)
+        return;
 
     const GW::Array<uint32_t>& sub1s = map_context->sub1->pathing_map_block;
     float min_x = 1000000000;
     float max_x = -1000000000;
     float min_y = 1000000000;
     float max_y = -1000000000;
+    float min_z = 1000000000;
+    float max_z = -1000000000;
     for (size_t i = 0; i < path_map->size(); ++i)
     {
         const GW::PathingMap pmap = path_map->m_buffer[i];
@@ -77,7 +81,7 @@ void AddMapTrapezoidsToRedisPipe(const float dt)
         {
             GW::PathingTrapezoid& trapezoid = pmap.trapezoids[j];
             std::string trapezoid_id = std::to_string(trapezoid.id);
-            bool is_traversable = !sub1s[i];
+            bool is_traversable = ! sub1s[i];
 
             float radius = 10;
 
@@ -114,29 +118,60 @@ void AddMapTrapezoidsToRedisPipe(const float dt)
             trapezoid_map.insert({"z_bottow_left_" + trapezoid_id, std::to_string(BL.z)});
             trapezoid_map.insert({"z_bottom_right_" + trapezoid_id, std::to_string(BR.z)});
 
-
             trapezoid_map.insert({"is_traversable_" + trapezoid_id, std::to_string(is_traversable)});
             trapezoid_map.insert({"map_layer_" + trapezoid_id, std::to_string(i)});
 
-            if (BL.x < min_x) min_x = BL.x;
-            else if (BL.x > max_x) max_x = BL.x;
-            if (BL.y < min_y) min_y = BL.y;
-            else if (BL.y > max_y) max_y = BL.y;
+            if (BL.x < min_x)
+                min_x = BL.x;
+            else if (BL.x > max_x)
+                max_x = BL.x;
+            if (BL.y < min_y)
+                min_y = BL.y;
+            else if (BL.y > max_y)
+                max_y = BL.y;
+            if (BL.z < min_z)
+                min_z = BL.z;
+            else if (BL.z > max_z)
+                max_z = BL.z;
 
-            if (BR.x < min_x) min_x = BR.x;
-            else if (BR.x > max_x) max_x = BR.x;
-            if (BR.y < min_y) min_y = BR.y;
-            else if (BR.y > max_y) max_y = BR.y;
+            if (BR.x < min_x)
+                min_x = BR.x;
+            else if (BR.x > max_x)
+                max_x = BR.x;
+            if (BR.y < min_y)
+                min_y = BR.y;
+            else if (BR.y > max_y)
+                max_y = BR.y;
+            if (BR.z < min_z)
+                min_z = BR.z;
+            else if (BR.z > max_z)
+                max_z = BR.z;
 
-            if (TL.x < min_x) min_x = TL.x;
-            else if (TL.x > max_x) max_x = TL.x;
-            if (TL.y < min_y) min_y = TL.y;
-            else if (TL.y > max_y) max_y = TL.y;
+            if (TL.x < min_x)
+                min_x = TL.x;
+            else if (TL.x > max_x)
+                max_x = TL.x;
+            if (TL.y < min_y)
+                min_y = TL.y;
+            else if (TL.y > max_y)
+                max_y = TL.y;
+            if (TL.z < min_z)
+                min_z = TL.z;
+            else if (TL.z > max_z)
+                max_z = TL.z;
 
-            if (TR.x < min_x) min_x = TR.x;
-            else if (TR.x > max_x) max_x = TR.x;
-            if (TR.y < min_y) min_y = TR.y;
-            else if (TR.y > max_y) max_y = TR.y;
+            if (TR.x < min_x)
+                min_x = TR.x;
+            else if (TR.x > max_x)
+                max_x = TR.x;
+            if (TR.y < min_y)
+                min_y = TR.y;
+            else if (TR.y > max_y)
+                max_y = TR.y;
+            if (TR.z < min_z)
+                min_z = TR.z;
+            else if (TR.z > max_z)
+                max_z = TR.z;
         }
     }
 
@@ -144,17 +179,23 @@ void AddMapTrapezoidsToRedisPipe(const float dt)
     map_min_x[map_id] = min_x;
     map_max_y[map_id] = max_y;
     map_min_y[map_id] = min_y;
+    map_max_z[map_id] = max_z;
+    map_min_z[map_id] = min_z;
     map_center_x[map_id] = (max_x + min_x) / 2.0f;
     map_center_y[map_id] = (max_y + min_y) / 2.0f;
+    map_center_z[map_id] = (max_z + min_z) / 2.0f;
 
     trapezoid_map.insert({"number_of_trapezoids", std::to_string(number_of_trapezoids)});
 
     redis_pipe.hset(boundary_key, std::make_pair("max_x", std::to_string(max_x)));
     redis_pipe.hset(boundary_key, std::make_pair("max_y", std::to_string(max_y)));
+    redis_pipe.hset(boundary_key, std::make_pair("max_z", std::to_string(max_z)));
     redis_pipe.hset(boundary_key, std::make_pair("min_x", std::to_string(min_x)));
     redis_pipe.hset(boundary_key, std::make_pair("min_y", std::to_string(min_y)));
+    redis_pipe.hset(boundary_key, std::make_pair("min_z", std::to_string(min_z)));
     redis_pipe.hset(boundary_key, std::make_pair("center_x", std::to_string(map_center_x[map_id])));
     redis_pipe.hset(boundary_key, std::make_pair("center_y", std::to_string(map_center_y[map_id])));
+    redis_pipe.hset(boundary_key, std::make_pair("center_z", std::to_string(map_center_z[map_id])));
 
     // Add all trapezoid data to pipeline
     redis_pipe.hmset(trapezoid_key, trapezoid_map.begin(), trapezoid_map.end());
@@ -170,7 +211,8 @@ void AddMapGridPointsToRedisPipe(float dt)
         return;
     }
 
-    if (!GW::Map::GetIsMapLoaded()) return;
+    if (! GW::Map::GetIsMapLoaded())
+        return;
 
     const auto& map_id = GW::CharContext::instance()->current_map_id;
 
@@ -208,10 +250,7 @@ void AddMapGridPointsToRedisPipe(float dt)
             GW::Map::QueryAltitude(gp, 10, altitude);
             GW::Vec3f grid_point{x, y, altitude};
 
-            std::string grid_point_id{
-                std::to_string(i) + "_" +
-                std::to_string(j) + "_"
-            };
+            std::string grid_point_id{std::to_string(i) + "_" + std::to_string(j) + "_"};
 
             grid_point_map.insert({grid_point_id + "x", std::to_string(grid_point.x)});
             grid_point_map.insert({grid_point_id + "y", std::to_string(grid_point.y)});
