@@ -230,7 +230,7 @@ void AddMapGridPointsToRedisPipe(float dt)
     uint32_t num_grid_points_y{static_cast<uint32_t>(map_height / grid_height) + 1};
 
     const auto num_grid_points{(num_grid_points_x * num_grid_points_y)};
-    if (redis.hlen(grid_key) == static_cast<long long>(num_grid_points) * 3 + 1)
+    if (redis.hlen(grid_key) == static_cast<long long>(num_grid_points) * 3 + 3)
     {
         existing_grid_points_map_id.insert(map_id);
         return;
@@ -246,6 +246,7 @@ void AddMapGridPointsToRedisPipe(float dt)
 
             GW::GamePos gp{x, y, 0};
             float altitude{0};
+            // 0, 0x41200000, 0x3f800000, 0x40a00000
             GW::Map::QueryAltitude(gp, 10, altitude);
             GW::Vec3f grid_point{x, y, altitude};
 

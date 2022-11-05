@@ -20,8 +20,8 @@ inline float map_center_x[900];
 inline float map_center_y[900];
 inline float map_center_z[900];
 
-inline float grid_width{50};
-inline float grid_height{50};
+inline float grid_width{100};
+inline float grid_height{100};
 inline float time_since_updated_grid_points = 0;
 inline std::unordered_set<uint32_t> existing_grid_points_map_id;
 
